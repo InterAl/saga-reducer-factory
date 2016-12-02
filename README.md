@@ -56,9 +56,9 @@ const actionsList = [
 
 export const types = ActionCreatorHelper.createTypes(actionsList, 'SESSION_');
 export const actions = ActionCreatorHelper.createActions(actionsList, 'SESSION_');
-```javascript
+```
 
-#Explanation
-updateState creates an action that updates the reducer.
-ActionCreatorHelper is a utility for creating actions from plain strings, by
+# Explanation
+1. updateState creates an action that updates the reducer.
+2. ActionCreatorHelper is a utility for creating actions from plain strings, by
 utilizing redux-actions.
