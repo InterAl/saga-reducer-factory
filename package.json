@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.2",
+    "redux-actions": "^1.1.0",
     "redux-saga": "^0.13.0"
   }
 }
