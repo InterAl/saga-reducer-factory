@@ -5,8 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "rm -rf dist/ && babel -d dist/ src/",
-    "build": "npm run compile"
+    "compile": "rm -rf dist/ && babel -d dist/ src/"
   },
   "repository": {
     "type": "git",
