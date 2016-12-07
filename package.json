@@ -1,6 +1,6 @@
 {
   "name": "saga-reducer-factory",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "A utility for creating a pair of saga + a matching reducer, for minimizing boilerplate",
   "main": "dist/index.js",
   "scripts": {
