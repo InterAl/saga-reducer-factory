@@ -40,5 +40,35 @@ describe('SagaReducerFactory', () => {
                 }
             })
         });
+
+        it('no collision between 2 unprefixed reducers', () => {
+            //Given
+            const actionTypes = createTypes(['foo', 'bar']);
+            const actionCreators = createActions(['foo', 'bar']);
+
+            const {updateState: updateState1, reducer: reducer1} = SagaReducerFactory({
+                actionTypes,
+                actionCreators
+            });
+
+            const {updateState: updateState2, reducer: reducer2} = SagaReducerFactory({
+                actionTypes,
+                actionCreators
+            });
+
+            //When
+            const reducer1Result1 = reducer1(undefined, updateState1({
+                foo: 'bar'
+            }));
+
+            const reducer1Result2 = reducer1(reducer1Result1, updateState2({
+                foo: 'baz'
+            }));
+
+            //Then
+            assert.deepEqual(reducer1Result2, {
+                foo: 'bar'
+            });
+        });
     });
 });
