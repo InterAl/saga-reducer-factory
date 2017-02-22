@@ -22,6 +22,8 @@ var camelize = function camelize(str) {
 
 // Expect an array of strings and return { ONE : 'ONE', TWO : 'TWO', THREE : 'THREE' }
 var createTypes = exports.createTypes = function createTypes(strings, prefix) {
+    if (!prefix) throw new Error('a unique prefix must be given');
+
     return strings.reduce(function (rc, str) {
         var actionStr = null;
         prefix = prefix || '';
@@ -39,6 +41,8 @@ var createTypes = exports.createTypes = function createTypes(strings, prefix) {
 
 // Expect an array of strings and return { oneTwoThree : <action>, fourFiveSix : <action> }
 var createActions = exports.createActions = function createActions(strings, prefix) {
+    if (!prefix) throw new Error('a unique prefix must be given');
+
     return strings.reduce(function (rc, str) {
         var actionStr = null;
         var actionPropTypes = null;
