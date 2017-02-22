@@ -17,7 +17,7 @@ export const createTypes = (strings, prefix) => strings.reduce((rc, str) => {
 
     rc[actionStr] = prefix + actionStr;
     return rc;
-}, {'UPDATE_STATE': prefix + 'UPDATE_STATE'});
+}, {'UPDATE_STATE': (prefix || '') + 'UPDATE_STATE'});
 
 // Expect an array of strings and return { oneTwoThree : <action>, fourFiveSix : <action> }
 export const createActions = (strings, prefix) => strings.reduce((rc, str) => {
@@ -64,4 +64,4 @@ export const createActions = (strings, prefix) => strings.reduce((rc, str) => {
         return action(payload);
     };
     return rc;
-}, {'updateState': createAction(prefix + 'UPDATE_STATE')});
+}, {'updateState': createAction((prefix || '') + 'UPDATE_STATE')});

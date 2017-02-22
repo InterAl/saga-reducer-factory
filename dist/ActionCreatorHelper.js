@@ -34,7 +34,7 @@ var createTypes = exports.createTypes = function createTypes(strings, prefix) {
 
         rc[actionStr] = prefix + actionStr;
         return rc;
-    }, { 'UPDATE_STATE': prefix + 'UPDATE_STATE' });
+    }, { 'UPDATE_STATE': (prefix || '') + 'UPDATE_STATE' });
 };
 
 // Expect an array of strings and return { oneTwoThree : <action>, fourFiveSix : <action> }
@@ -83,5 +83,5 @@ var createActions = exports.createActions = function createActions(strings, pref
             return action(payload);
         };
         return rc;
-    }, { 'updateState': (0, _reduxActions.createAction)(prefix + 'UPDATE_STATE') });
+    }, { 'updateState': (0, _reduxActions.createAction)((prefix || '') + 'UPDATE_STATE') });
 };

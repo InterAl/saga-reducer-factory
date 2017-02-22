@@ -25,12 +25,28 @@ exports.default = function (_ref) {
         handleOnce = _SagaForker.handleOnce,
         forkWatchers = _SagaForker.forkWatchers;
 
+    var updateStateActionType = actionTypes.UPDATE_STATE;
+    var updateStateAction = actionCreators.updateState;
+
+    if (actionCreators.updateState().type === 'UPDATE_STATE' || actionTypes.UPDATE_STATE === 'UPDATE_STATE') {
+        updateStateActionType = autoPrefix() + '_UPDATE_STATE';
+        updateStateAction = function updateStateAction() {
+            return (0, _extends3.default)({}, actionCreators.updateState.apply(actionCreators, arguments), {
+                type: updateStateActionType
+            });
+        };
+    }
+
+    function autoPrefix() {
+        return Math.random().toString();
+    }
+
     function reducer() {
         var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initState;
         var action = arguments[1];
 
         switch (action.type) {
-            case actionTypes.UPDATE_STATE:
+            case updateStateActionType:
                 return (0, _extends3.default)({}, state, action.payload.state);
                 break;
             default:
@@ -39,7 +55,7 @@ exports.default = function (_ref) {
     }
 
     function updateState(newState) {
-        return actionCreators.updateState({
+        return updateStateAction({
             state: (0, _extends3.default)({}, newState)
         });
     }
