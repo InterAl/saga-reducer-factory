@@ -14,9 +14,12 @@ var _SagaForker3 = _interopRequireDefault(_SagaForker2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (_ref) {
-    var actionTypes = _ref.actionTypes,
-        actionCreators = _ref.actionCreators,
+exports.default = function () {
+    var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+        _ref$actionTypes = _ref.actionTypes,
+        actionTypes = _ref$actionTypes === undefined ? {} : _ref$actionTypes,
+        _ref$actionCreators = _ref.actionCreators,
+        actionCreators = _ref$actionCreators === undefined ? {} : _ref$actionCreators,
         _ref$initState = _ref.initState,
         initState = _ref$initState === undefined ? {} : _ref$initState;
 
@@ -28,7 +31,7 @@ exports.default = function (_ref) {
     var updateStateActionType = actionTypes.UPDATE_STATE;
     var updateStateAction = actionCreators.updateState;
 
-    if (actionCreators.updateState().type === 'UPDATE_STATE' || actionTypes.UPDATE_STATE === 'UPDATE_STATE') {
+    if (actionCreators.updateState && actionCreators.updateState().type === 'UPDATE_STATE' || actionTypes.UPDATE_STATE === 'UPDATE_STATE') {
         updateStateActionType = autoPrefix() + '_UPDATE_STATE';
         updateStateAction = function updateStateAction() {
             return (0, _extends3.default)({}, actionCreators.updateState.apply(actionCreators, arguments), {

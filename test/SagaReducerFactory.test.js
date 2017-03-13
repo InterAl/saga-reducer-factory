@@ -71,4 +71,9 @@ describe('SagaReducerFactory', () => {
             });
         });
     });
+
+    it('can initialize without params - using only the returned saga', () => {
+        const {saga} = SagaReducerFactory();
+        assert(typeof saga === 'function', 'the returned saga was not a function');
+    });
 });
