@@ -1,6 +1,8 @@
 import SagaReducerFactory from '../src/SagaReducerFactory';
 import {createTypes, createActions} from '../src/ActionCreatorHelper';
 import {assert} from 'chai';
+import createSagaMiddleware from 'redux-saga';
+import { createStore, applyMiddleware } from 'redux';
 
 describe('SagaReducerFactory', () => {
     describe('update state action', () => {
@@ -76,4 +78,112 @@ describe('SagaReducerFactory', () => {
         const {saga} = SagaReducerFactory();
         assert(typeof saga === 'function', 'the returned saga was not a function');
     });
+
+    it('handle action', () => {
+        //Given
+        const actionTypes = createTypes(['foo']);
+        const actionCreators = createActions(['foo']);
+
+        const {handle, saga} = SagaReducerFactory({
+            actionTypes,
+            actionCreators
+        });
+
+        //When
+        let called = 0;
+
+        handle('*', function*() {
+            called++;
+        });
+
+        //Then
+        const store = runSaga(saga);
+
+        store.dispatch({
+            type: 'foo'
+        });
+
+        store.dispatch({
+            type: 'foo'
+        });
+
+        assert.equal(called, 2);
+    });
+
+    //sigh
+    it('handle handles unhandled exceptions', () => {
+        //Given
+        const actionTypes = createTypes(['foo']);
+        const actionCreators = createActions(['foo']);
+
+        const {handle, saga} = SagaReducerFactory({
+            actionTypes,
+            actionCreators
+        });
+
+        //When
+        let called = 0;
+
+        handle('*', function*() {
+            called++;
+            throw 'error';
+        });
+
+        //Then
+        const store = runSaga(saga);
+
+        store.dispatch({
+            type: 'foo'
+        });
+
+        store.dispatch({
+            type: 'foo'
+        });
+
+        assert.equal(called, 2);
+    });
+
+    it('handleOnce', () => {
+        //Given
+        const actionTypes = createTypes(['foo']);
+        const actionCreators = createActions(['foo']);
+
+        const {handleOnce, saga} = SagaReducerFactory({
+            actionTypes,
+            actionCreators
+        });
+
+        //When
+        let called = 0;
+
+        handleOnce('*', function*() {
+            called++;
+        });
+
+        //Then
+        const store = runSaga(saga);
+
+        store.dispatch({
+            type: 'foo'
+        });
+
+        store.dispatch({
+            type: 'foo'
+        });
+
+        assert.equal(called, 1);
+    });
+
+    function runSaga(saga) {
+        const sagaMiddleware = createSagaMiddleware();
+
+        const store = createStore(() => ({}), null,
+          applyMiddleware(
+              sagaMiddleware
+          ));
+
+        sagaMiddleware.run(saga);
+
+        return store;
+    }
 });

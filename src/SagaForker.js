@@ -6,7 +6,13 @@ export default () => {
 
     function handle(type, handler) {
         watchers.push(function* watcher(sagaParams) {
-            yield* takeEvery(type, handler.bind(null, sagaParams));
+            yield* takeEvery(type, function*(action) {
+                try {
+                    yield handler(sagaParams, action);
+                } catch (err) {
+                    console.error('unhandled saga exception', err);
+                }
+            });
         });
     }
 
