@@ -49,17 +49,6 @@ export const createActions = (strings, prefix) => strings.reduce((rc, str) => {
                     }
                 }
             });
-
-            _.each(actionPropTypes, (validate, key) => {
-                const result = validate(payload || {}, key, actionStr, 'prop');
-                if (result) {
-                    if ((typeof (window) !== 'undefined') && (window.spiceProduction)) {
-                        console.warn(result);
-                    } else {
-                        throw result;
-                    }
-                }
-            });
         }
         return action(payload);
     };
