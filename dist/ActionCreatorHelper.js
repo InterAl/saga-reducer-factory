@@ -68,17 +68,6 @@ var createActions = exports.createActions = function createActions(strings, pref
                         }
                     }
                 });
-
-                _lodash2.default.each(actionPropTypes, function (validate, key) {
-                    var result = validate(payload || {}, key, actionStr, 'prop');
-                    if (result) {
-                        if (typeof window !== 'undefined' && window.spiceProduction) {
-                            console.warn(result);
-                        } else {
-                            throw result;
-                        }
-                    }
-                });
             }
             return action(payload);
         };
