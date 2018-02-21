@@ -23,12 +23,33 @@ export default () => {
         });
     }
 
+    function handleAll(types, handler) {
+        watchers.push(function* watcher(sagaParams) {
+            while (true) {
+                const done = {};
+
+                while (Object.keys(done).length < types.length) {
+                    const action = yield take(types);
+                    done[action.type] = action;
+                }
+
+                try {
+                    const args = types.map(t => done[t]);
+                    yield handler(sagaParams, args);
+                } catch (err) {
+                    console.error('unhandled saga exception', err);
+                }
+            }
+        });
+    }
+
     function* forkWatchers(sagaParams) {
         yield watchers.map(watcher => fork(watcher.bind(null, sagaParams)));
     }
 
     return {
         handle,
+        handleAll,
         handleOnce,
         forkWatchers
     };

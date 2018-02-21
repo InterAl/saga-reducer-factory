@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha --require babel-register test/**/*.test.js",
     "test:watch": "mocha --watch --require babel-register test/**/*.test.js",
+    "test:watchSingle": "mocha --watch --require babel-register",
     "compile": "rm -rf dist/ && babel -d dist/ src/"
   },
   "repository": {
@@ -27,7 +28,8 @@
     "babel-preset-stage-2": "^6.18.0",
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "sinon": "^4.3.0"
   },
   "dependencies": {
     "lodash": "^4.17.2",

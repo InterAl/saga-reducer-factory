@@ -1,7 +1,7 @@
 import SagaForker from './SagaForker';
 
 export default ({actionTypes = {}, actionCreators = {}, initState = {}} = {}) => {
-    const {handle, handleOnce, forkWatchers} = SagaForker();
+    const {handle, handleOnce, handleAll, forkWatchers} = SagaForker();
 
     let updateStateActionType = actionTypes.UPDATE_STATE;
     let updateStateAction = actionCreators.updateState;
@@ -41,6 +41,7 @@ export default ({actionTypes = {}, actionCreators = {}, initState = {}} = {}) =>
     return {
         handle,
         handleOnce,
+        handleAll,
         saga: forkWatchers,
         reducer,
         updateState

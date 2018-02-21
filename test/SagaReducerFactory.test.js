@@ -3,6 +3,7 @@ import {createTypes, createActions} from '../src/ActionCreatorHelper';
 import {assert} from 'chai';
 import createSagaMiddleware from 'redux-saga';
 import { createStore, applyMiddleware } from 'redux';
+import sinon from 'sinon';
 
 describe('SagaReducerFactory', () => {
     describe('update state action', () => {
@@ -172,6 +173,66 @@ describe('SagaReducerFactory', () => {
         });
 
         assert.equal(called, 1);
+    });
+
+    it('handleAll - triggers when both actions are dispatched', () => {
+        //Given
+        const actionTypes = createTypes(['foo', 'bar']);
+        const actionCreators = createActions(['foo', 'bar']);
+
+        const {handleAll, saga} = SagaReducerFactory({
+            actionTypes,
+            actionCreators
+        });
+
+        const spy = sinon.spy();
+
+        //When
+
+        handleAll(['foo', 'bar'], function*(...args) {
+            spy(...args);
+        });
+
+        //Then
+        const store = runSaga(saga);
+
+        store.dispatch({
+            type: 'foo',
+            payload: 1
+        });
+
+        store.dispatch({
+            type: 'bar',
+            payload: 2
+        });
+
+        store.dispatch({
+            type: 'foo',
+            payload: 3
+        });
+
+        store.dispatch({
+            type: 'bar',
+            payload: 4
+        });
+
+        assert(spy.calledTwice);
+
+        sinon.assert.calledWith(spy, undefined, [{
+            type: 'foo',
+            payload: 1
+        }, {
+            type: 'bar',
+            payload: 2
+        }]);
+
+        sinon.assert.calledWith(spy, undefined, [{
+            type: 'foo',
+            payload: 3
+        }, {
+            type: 'bar',
+            payload: 4
+        }]);
     });
 
     function runSaga(saga) {

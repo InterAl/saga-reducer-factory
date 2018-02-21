@@ -26,6 +26,7 @@ exports.default = function () {
     var _SagaForker = (0, _SagaForker3.default)(),
         handle = _SagaForker.handle,
         handleOnce = _SagaForker.handleOnce,
+        handleAll = _SagaForker.handleAll,
         forkWatchers = _SagaForker.forkWatchers;
 
     var updateStateActionType = actionTypes.UPDATE_STATE;
@@ -66,6 +67,7 @@ exports.default = function () {
     return {
         handle: handle,
         handleOnce: handleOnce,
+        handleAll: handleAll,
         saga: forkWatchers,
         reducer: reducer,
         updateState: updateState
