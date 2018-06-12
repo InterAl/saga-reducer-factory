@@ -13,7 +13,7 @@ $ npm i -S saga-reducer-factory
 
 ### Saga module
 ```javascript
-import SagaReducerFactory from 'SagaReducerFactory';
+import SagaReducerFactory from 'saga-reducer-factory';
 import { actions, types } from '../actions/loginActions';
 import { put } from 'redux-saga/effects';
 
@@ -46,7 +46,7 @@ export default {saga, reducer};
 
 ### Actions module
 ```javascript
-import {ActionCreatorHelper} from 'SagaReducerFactory';
+import {ActionCreatorHelper} from 'saga-reducer-factory';
 
 const actionsList = [
     'LOGIN',
