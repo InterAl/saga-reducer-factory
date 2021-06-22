@@ -19,17 +19,17 @@ var _reduxSaga = require('redux-saga');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
-    var _marked = [forkWatchers].map(_regenerator2.default.mark);
+    var _marked = /*#__PURE__*/_regenerator2.default.mark(forkWatchers);
 
     var watchers = [];
 
     function handle(type, handler) {
-        watchers.push(_regenerator2.default.mark(function watcher(sagaParams) {
+        watchers.push( /*#__PURE__*/_regenerator2.default.mark(function watcher(sagaParams) {
             return _regenerator2.default.wrap(function watcher$(_context2) {
                 while (1) {
                     switch (_context2.prev = _context2.next) {
                         case 0:
-                            return _context2.delegateYield((0, _reduxSaga.takeEvery)(type, _regenerator2.default.mark(function _callee(action) {
+                            return _context2.delegateYield((0, _reduxSaga.takeEvery)(type, /*#__PURE__*/_regenerator2.default.mark(function _callee(action) {
                                 return _regenerator2.default.wrap(function _callee$(_context) {
                                     while (1) {
                                         switch (_context.prev = _context.next) {
@@ -66,14 +66,14 @@ exports.default = function () {
     }
 
     function handleOnce(type, handler) {
-        watchers.push(_regenerator2.default.mark(function watcher(sagaParams) {
+        watchers.push( /*#__PURE__*/_regenerator2.default.mark(function watcher(sagaParams) {
             var action;
             return _regenerator2.default.wrap(function watcher$(_context3) {
                 while (1) {
                     switch (_context3.prev = _context3.next) {
                         case 0:
                             _context3.next = 2;
-                            return (0, _effects.take)();
+                            return (0, _effects.take)(type);
 
                         case 2:
                             action = _context3.sent;
@@ -90,7 +90,7 @@ exports.default = function () {
     }
 
     function handleAll(types, handler) {
-        watchers.push(_regenerator2.default.mark(function watcher(sagaParams) {
+        watchers.push( /*#__PURE__*/_regenerator2.default.mark(function watcher(sagaParams) {
             var _this = this;
 
             var _loop;
@@ -99,7 +99,7 @@ exports.default = function () {
                 while (1) {
                     switch (_context5.prev = _context5.next) {
                         case 0:
-                            _loop = _regenerator2.default.mark(function _loop() {
+                            _loop = /*#__PURE__*/_regenerator2.default.mark(function _loop() {
                                 var done, action, args;
                                 return _regenerator2.default.wrap(function _loop$(_context4) {
                                     while (1) {
@@ -185,7 +185,7 @@ exports.default = function () {
                         return _context6.stop();
                 }
             }
-        }, _marked[0], this);
+        }, _marked, this);
     }
 
     return {
