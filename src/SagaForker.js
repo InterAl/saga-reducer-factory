@@ -18,7 +18,7 @@ export default () => {
 
     function handleOnce(type, handler) {
         watchers.push(function* watcher(sagaParams) {
-            let action = yield take();
+            let action = yield take(type);
             yield handler(sagaParams, action);
         });
     }

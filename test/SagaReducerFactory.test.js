@@ -175,6 +175,68 @@ describe('SagaReducerFactory', () => {
         assert.equal(called, 1);
     });
 
+    it('handleOnce with a concrete action type', () => {
+        //Given
+        const actionTypes = createTypes(['foo']);
+        const actionCreators = createActions(['foo']);
+
+        const {handleOnce, saga} = SagaReducerFactory({
+            actionTypes,
+            actionCreators
+        });
+
+        //When
+        let called = 0;
+
+        handleOnce('foo', function*() {
+            called++;
+        });
+
+        //Then
+        const store = runSaga(saga);
+
+        store.dispatch({
+            type: 'foo'
+        });
+
+        store.dispatch({
+            type: 'foo'
+        });
+
+        assert.equal(called, 1);
+    });
+
+    it('handleOnce with a concrete action type - should not respond to a different dispatched action', () => {
+        //Given
+        const actionTypes = createTypes(['foo']);
+        const actionCreators = createActions(['foo']);
+
+        const {handleOnce, saga} = SagaReducerFactory({
+            actionTypes,
+            actionCreators
+        });
+
+        //When
+        let called = 0;
+
+        handleOnce('foo', function*() {
+            called++;
+        });
+
+        //Then
+        const store = runSaga(saga);
+
+        store.dispatch({
+            type: 'bar'
+        });
+
+        store.dispatch({
+            type: 'bar'
+        });
+
+        assert.equal(called, 0);
+    });
+
     it('handleAll - triggers when both actions are dispatched', () => {
         //Given
         const actionTypes = createTypes(['foo', 'bar']);
